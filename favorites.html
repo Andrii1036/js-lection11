@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        let usersWrapper = document.createElement('div');
+        usersWrapper.style.cssText = 'border:1px solid black;display:flex;flex-wrap:wrap; gap:10px;padding:10px; max-width:1000px; justify-content: space-around; margin: 0 auto';
+
+        let favoritsUsersFromLocal = JSON.parse(localStorage.getItem('favoritsUsers'))
+
+        for (user of favoritsUsersFromLocal) {
+            let userDiv = document.createElement('div');
+            userDiv.style.cssText = 'display:flex; text-align:center; width:200px; padding:10px; row-gap:15px; flex-direction:column; border: 2px solid black';
+            let title = document.createElement('h2');
+            title.innerText = user.name;
+            let subTitle = document.createElement('p');
+            subTitle.innerText = user.age;
+            let subscribe = document.createElement('p');
+            subscribe.innerText = user.status
+
+            userDiv.append(title, subTitle, subscribe);
+            usersWrapper.appendChild(userDiv);
+        };
+        document.body.appendChild(usersWrapper)
+    </script>
+</body>
+
+</html>
