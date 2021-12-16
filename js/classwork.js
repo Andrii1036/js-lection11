@@ -36,7 +36,7 @@ header.appendChild(anchor)
 
 let userID = 1;
 
-for (user of users) {
+for (let user of users) {
     let userDiv = document.createElement('div');
     userDiv.id = userID
     userDiv.style.cssText = 'display:flex; text-align:center; width:200px; padding:10px; row-gap:15px; flex-direction:column; border: 2px solid black';
@@ -61,7 +61,7 @@ for (user of users) {
 function addToFavorits() {
     this.classList.toggle('active');
     let id = this.parentElement.id;
-    for (user of users) {
+    for (let user of users) {
         if (user.id == id) {
             user.favorite = !user.favorite
         };
