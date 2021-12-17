@@ -42,12 +42,11 @@ const inputJSON3 = '[{"childs":[{"age":25,"firstName":"Marta","childs":[{"childs
 const inputJSON4 = '[[[[{"childs":[{"age":25,"firstName":"Marta"},{"childs":[{"age":10,"firstName":"Arnold"},{"age":12,"firstName":"Nick"}],"age":32,"firstName":"Peter"}],"age":60,"firstName":"Alina"}]]],{"age":35,"firstName":"Barbara"},{"age":43,"firstName":"Jack"},{"age":52,"firstName":"Tom"},{"childs":[{"age":15,"firstName":"Mike"},{"age":16,"firstName":"Joshua"},{"childs":[{"age":55,"firstName":"Kira"},{"age":19,"firstName":"Olha"}]}],"age":44,"firstName":"Michael"}]';
 
 let parseArray = (array, result) => {
-    let parsedArray = JSON.parse(array);
     let resultArray = result || [];
 
-    for (let item of parsedArray) {
+    for (let item of array) {
         if (Array.isArray(item)) {
-            parseArray(JSON.stringify(item), resultArray);
+            parseArray(item, resultArray);
         } else {
             let temporaryObject = {};
             let isTemporaryObjectOk = false
@@ -57,7 +56,7 @@ let parseArray = (array, result) => {
                     temporaryObject[key] = item[key];
                 } else {
                     isTemporaryObjectOk = false
-                    parseArray(JSON.stringify(item[key]), resultArray)
+                    parseArray(item[key], resultArray)
                 };
             };
             if (isTemporaryObjectOk) {
@@ -69,7 +68,7 @@ let parseArray = (array, result) => {
     return resultArray.sort((a, b) => a.firstName > b.firstName ? 1 : a.firstName === b.firstName ? 0 : -1);
 };
 
-console.log(parseArray(inputJSON));
-console.log(parseArray(inputJSON2));
-console.log(parseArray(inputJSON3));
-console.log(parseArray(inputJSON4));
+console.log(parseArray(JSON.parse(inputJSON)));
+console.log(parseArray(JSON.parse(inputJSON2)));
+console.log(parseArray(JSON.parse(inputJSON3)));
+console.log(parseArray(JSON.parse(inputJSON4)));
