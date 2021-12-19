@@ -41,12 +41,12 @@ const inputJSON2 = '[{"childs":[{"age":25,"firstName":"Marta"},{"childs":[{"age"
 const inputJSON3 = '[{"childs":[{"age":25,"firstName":"Marta","childs":[{"childs":[{"age":25,"firstName":"Marta"},{"childs":[{"age":10,"firstName":"Arnold"},{"age":12,"firstName":"Nick"}],"age":32,"firstName":"Peter"}],"age":60,"firstName":"Alina"},{"age":35,"firstName":"Barbara"},{"age":43,"firstName":"Jack"},{"age":52,"firstName":"Tom"},{"childs":[{"age":15,"firstName":"Mike"},{"age":16,"firstName":"Joshua"},{"childs":[{"age":55,"firstName":"Kira"},{"age":19,"firstName":"Olha"}]}],"age":44,"firstName":"Michael"}]},{"childs":[{"age":10,"firstName":"Arnold"},{"age":12,"firstName":"Nick"}],"age":32,"firstName":"Peter"}],"age":60,"firstName":"Alina"},{"age":35,"firstName":"Barbara"},{"age":43,"firstName":"Jack"},{"age":52,"firstName":"Tom"},{"childs":[{"age":15,"firstName":"Mike"},{"age":16,"firstName":"Joshua"}],"age":44,"firstName":"Michael"}]';
 const inputJSON4 = '[[[[{"childs":[{"age":25,"firstName":"Marta"},{"childs":[{"age":10,"firstName":"Arnold"},{"age":12,"firstName":"Nick"}],"age":32,"firstName":"Peter"}],"age":60,"firstName":"Alina"}]]],{"age":35,"firstName":"Barbara"},{"age":43,"firstName":"Jack"},{"age":52,"firstName":"Tom"},{"childs":[{"age":15,"firstName":"Mike"},{"age":16,"firstName":"Joshua"},{"childs":[{"age":55,"firstName":"Kira"},{"age":19,"firstName":"Olha"}]}],"age":44,"firstName":"Michael"}]';
 
-let parseArray = (array, result) => {
-    let resultArray = result || [];
+let parseArray = (array) => {
+    let resultArray = [];
 
     for (let item of array) {
         if (Array.isArray(item)) {
-            parseArray(item, resultArray);
+            parseArray(item).map(item => resultArray.push(item));
         } else {
             let temporaryObject = {};
             let isTemporaryObjectOk = false
@@ -56,7 +56,7 @@ let parseArray = (array, result) => {
                     temporaryObject[key] = item[key];
                 } else {
                     isTemporaryObjectOk = false
-                    parseArray(item[key], resultArray)
+                    parseArray(item[key]).map(item => resultArray.push(item));
                 };
             };
             if (isTemporaryObjectOk) {
